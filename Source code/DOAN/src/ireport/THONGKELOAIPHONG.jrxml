@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="THONGKELOAIPHONG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="31b06a9b-ebcf-494c-9576-701369008b26">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT TENLOAIPHONG, N.MAPHONG, HOTEN, MAPHIEUNHAN
+FROM LOAIPHONG L, PHONG P, KHACHHANG K, PHIEUNHANPHONG N
+WHERE L.MALOAIPHONG = P.MALOAIPHONG AND N.MAKH = K.MAKH AND N.MAPHONG = P.MAPHONG
+ORDER BY TENLOAIPHONG, N.MAPHONG, HOTEN]]>
+	</queryString>
+	<field name="TENLOAIPHONG" class="java.lang.String"/>
+	<field name="MAPHONG" class="java.math.BigDecimal"/>
+	<field name="HOTEN" class="java.lang.String"/>
+	<field name="MAPHIEUNHAN" class="java.math.BigDecimal"/>
+	<variable name="MAPHIEUNHAN_1" class="java.lang.Integer" resetType="Group" resetGroup="LOAIPHONG" calculation="Count">
+		<variableExpression><![CDATA[$F{MAPHIEUNHAN}]]></variableExpression>
+	</variable>
+	<variable name="MAPHIEUNHAN_2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{MAPHIEUNHAN}]]></variableExpression>
+	</variable>
+	<group name="LOAIPHONG">
+		<groupExpression><![CDATA[$F{TENLOAIPHONG}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="102" y="13" width="350" height="24" forecolor="#0066CC" backcolor="#FFFFFF" uuid="cdd15c65-dbe2-45fe-9bd4-bcd0d771a507"/>
+					<textElement>
+						<font fontName="Arial" size="18" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["LOẠI PHÒNG: " + $F{TENLOAIPHONG}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="223" y="12" width="332" height="20" forecolor="#006699" uuid="ff8bee9f-2842-4ce9-bfd2-a80bc379f4d6"/>
+					<textElement>
+						<font fontName="Arial" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tổng số phòng thuê theo loại phòng: " + $V{MAPHIEUNHAN_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#0099CC" uuid="0215c554-8461-44c2-b6c1-68677356faf9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THỐNG KÊ THUÊ PHÒNG THEO LOẠI PHÒNG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="130" y="14" width="270" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="a5d57884-fdec-4ac3-9d5b-9ee9632f94c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TÊN KHÁCH HÀNG ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="14" width="155" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="8648e2cc-d6b9-44da-9967-b95bee2e9b6f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÃ PHIẾU NHẬN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="14" width="130" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="7b396895-817b-4adb-8652-5a7fdab18432"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÃ PHÒNG ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="12" width="130" height="20" backcolor="#D5E1FF" uuid="16df95f0-4a44-4804-8809-26b354c42a2d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAPHONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="130" y="12" width="270" height="20" backcolor="#D5E1FF" uuid="d561f9ad-bfcc-47ba-b4db-146ae2f203b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOTEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="400" y="12" width="155" height="20" backcolor="#D5E1FF" uuid="9be53b82-b0c1-4c22-9b90-c001fc7dcd5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAPHIEUNHAN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="453" y="10" width="102" height="20" forecolor="#006699" uuid="545f3b44-29ff-4861-a5b5-823568054dd1"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trang: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="350" y="10" width="203" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="a22c45f0-316c-4b3a-9c73-81513137d694"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tổng cộng: " + $V{MAPHIEUNHAN_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

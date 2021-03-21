@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TOP3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3af1d328-2fe9-49ad-a439-6b6f395dec88">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="THANG" class="java.lang.String"/>
+	<parameter name="NAM" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT TENMON, SUM(SOLUONG) SL
+FROM BANGKE_MONAN JOIN MONAN ON BANGKE_MONAN.MAMON = MONAN.MAMON
+WHERE EXTRACT(MONTH FROM NGAY) = $P{THANG} AND EXTRACT(YEAR FROM NGAY) = $P{NAM}
+GROUP BY TENMON
+ORDER BY SUM(SOLUONG)DESC
+FETCH FIRST 3 ROW WITH TIES
+]]>
+	</queryString>
+	<field name="TENMON" class="java.lang.String"/>
+	<field name="SL" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#0099CC" uuid="403e97be-1901-40e4-9562-e890a9c64ace"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOP 3 MÓN ĂN ĐƯỢC YÊU CẦU NHIỀU THEO THÁNG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="211" y="0" width="344" height="35" forecolor="#006699" uuid="010ad2f3-c360-4659-9f60-233c83d047a8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Thống kê theo:  tháng " + $P{THANG} + " năm " +  $P{NAM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="12" width="299" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="d7ccaa33-579a-4daf-8425-fd019744893f"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TÊN MÓN ĂN ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="299" y="12" width="256" height="20" forecolor="#006699" backcolor="#D5F1FF" uuid="3f4e934d-f9e1-4cff-88ae-c90d38d8f658"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SỐ LƯỢNG YÊU CẦU TRONG THÁNG]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="18" width="299" height="20" backcolor="#D5E1FF" uuid="00c838fe-e3e0-4c3e-b839-710b0c69b94f"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENMON}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="299" y="18" width="256" height="20" backcolor="#D5E1FF" uuid="ac284055-14ac-4e20-9278-4b8f257cc126"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
